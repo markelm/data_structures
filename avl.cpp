@@ -98,6 +98,11 @@ private:
 
       delete node;
       n--;
+      updateHeight(father);//Modified here
+      while(father){
+      	Balance(father);
+	father = father->father;
+      }
 
       return true;
     } else if (child (node) == 1) {
@@ -106,6 +111,7 @@ private:
         son = node->right;
 
       son->father = node->father;
+
       if (fromParent (node)) {
         *fromParent (node) = son;
       } else {
@@ -114,14 +120,17 @@ private:
       delete node;
       n--;
 
+      updateHeight(son);//Modified here
+      while(father){
+      	Balance(father);
+	father = father->father;
+      }
       return true;
     } else {
       Node<T>* s = sucessor (node);
       node->value = s->value;
       return remove (s);
     }
-
-    //NÃO PRECISA ADAPTAR PARA O BALANCEAMENTO (SERÁ O PRÓXIMO LAB)
   }
 
 
@@ -324,41 +333,63 @@ public:
 
 int main () {
   Tree<int> v;
+  v.insert (315);
+  v.insert (25);
+  v.insert (325);
+  v.insert (962);
+  v.insert (687);
+  v.insert (778);
+  v.insert (695);
+  v.printDeitada();
+  v.insert (245);
+  v.insert (299);
+  v.insert (135);
   v.insert (50);
-  v.insert (70);
-  v.insert (80);
-  v.insert (40);
-  v.insert (55);
-  v.insert (52);
-  v.printDeitada ();
-  cout << endl;
+  v.insert (307);
+  v.insert (640);
+  v.printDeitada();
+  cout << "=====================================" << endl;
+  v.insert (564);
+  v.insert (222);
+  v.insert (913);
+  v.insert (105);
+  v.insert (279);
+  v.insert (45);
+  v.insert (826);
   v.insert (75);
-  v.insert (59);
-  v.insert (82);
-  v.insert (99);
-  v.insert (22);
-  v.insert (77);
-  v.insert (86);
-  v.insert (91);
-  v.insert (29);
-  v.printDeitada ();
-  cout << endl;
-  v.insert (37);
-  v.insert (96);
-  v.insert (52);
-  v.insert (2);
-  v.insert (69);
-  v.insert (23);
-  v.insert (27);
-  v.insert (13);
-  v.insert (43);
-  v.insert (21);
-  v.insert (31);
-  v.insert (53);
-
-
-  v.printDeitada ();
-  cout << endl;
+  v.insert (495);
+  v.insert (962);
+  v.insert (913);
+  v.remove (315);
+  cout << "=====================================" << endl;
+  v.printDeitada();
+  v.remove (25);
+  v.remove (325);
+  v.remove (962);
+  v.remove (687);
+  v.remove (778);
+  v.remove (695);
+  v.remove (245);
+  v.remove (299);
+  v.remove (135);
+  v.remove (50);
+  v.remove (307);
+  v.printDeitada();
+  cout << "=====================================" << endl;
+  v.remove (640);
+  v.remove (564);
+  v.remove (222);
+  v.remove (913);
+  v.remove (105);
+  v.remove (279);
+  v.remove (45);
+  v.remove (826);
+  v.remove (75);
+  v.remove (495);
+  v.remove (962);
+  v.remove (913);
+  v.printDeitada();
+  cout << "=====================================" << endl;
 
   return 0;
 }
